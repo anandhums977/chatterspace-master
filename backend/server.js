@@ -19,9 +19,9 @@ const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
 cloudinary.config({
-  cloud_name: '',   // Replace with your Cloudinary cloud name
-  api_key: '',        // Replace with your API key
-  api_secret: ''   // Replace with your API secret
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,   // Replace with your Cloudinary cloud name
+  api_key:process.env.CLOUDINARY_API_KEY,        // Replace with your API key
+  api_secret: process.env.CLOUDINARY_API_SECRET  // Replace with your API secret
 });
 
 // Middlewares
