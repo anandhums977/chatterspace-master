@@ -24,3 +24,9 @@
 ::-webkit-scrollbar-thumb {
 	background-color: #555;
 }
+
+.css-iff9jk {
+	display: block;
+	border-left: 1px white dashed;
+	padding: 10px;
+}

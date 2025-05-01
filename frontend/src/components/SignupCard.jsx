@@ -7,6 +7,7 @@ import {
 	InputGroup,
 	HStack,
 	InputRightElement,
+	FormErrorMessage,
 	Stack,
 	Button,
 	Heading,
@@ -31,10 +32,22 @@ export default function SignupCard() {
 		password: "",
 	});
 
+	const [errors, setErrors] = useState({});
 	const showToast = useShowToast();
 	const setUser = useSetRecoilState(userAtom);
 
+
+
 	const handleSignup = async () => {
+		const newErrors = {
+			name: inputs.name ? "" : "name is required",
+			username: inputs.username ? "" : "Username is required",
+			email: inputs.email ? "" : "email is required",
+			password: inputs.password ? "" : "Password is required",
+		  };
+	
+		  
+		  setErrors(newErrors);
 		try {
 			const res = await fetch("/api/users/signup", {
 				method: "POST",
@@ -69,35 +82,38 @@ export default function SignupCard() {
 					<Stack spacing={4}>
 						<HStack>
 							<Box>
-								<FormControl isRequired>
+								<FormControl  isRequired isInvalid={!!errors.name}>
 									<FormLabel>Full name</FormLabel>
 									<Input
 										type='text'
 										onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
 										value={inputs.name}
 									/>
+									<FormErrorMessage>{errors.name}</FormErrorMessage>
 								</FormControl>
 							</Box>
 							<Box>
-								<FormControl isRequired>
+								<FormControl isRequired isInvalid={!!errors.username}>
 									<FormLabel>Username</FormLabel>
 									<Input
 										type='text'
 										onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
 										value={inputs.username}
 									/>
+									<FormErrorMessage>{errors.username}</FormErrorMessage>
 								</FormControl>
 							</Box>
 						</HStack>
-						<FormControl isRequired>
+						<FormControl isRequired isInvalid={!!errors.email}>
 							<FormLabel>Email address</FormLabel>
 							<Input
 								type='email'
 								onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
 								value={inputs.email}
 							/>
+							<FormErrorMessage>{errors.email}</FormErrorMessage>
 						</FormControl>
-						<FormControl isRequired>
+						<FormControl isRequired isInvalid={!!errors.password}>
 							<FormLabel>Password</FormLabel>
 							<InputGroup>
 								<Input
@@ -114,6 +130,7 @@ export default function SignupCard() {
 									</Button>
 								</InputRightElement>
 							</InputGroup>
+							<FormErrorMessage>{errors.password}</FormErrorMessage>
 						</FormControl>
 						<Stack spacing={10} pt={2}>
 							<Button

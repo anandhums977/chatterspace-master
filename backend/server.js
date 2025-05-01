@@ -9,7 +9,7 @@ import messageRoutes from "./routes/messageRoutes.js";
 import { v2 as cloudinary } from "cloudinary";
 import { app, server } from "./socket/socket.js";
 import job from "./cron/cron.js";
-
+import cors from 'cors';
 dotenv.config();
 connectDB();
 job.start();
@@ -22,7 +22,7 @@ cloudinary.config({
   api_key:process.env.CLOUDINARY_API_KEY,        // Replace with your API key
   api_secret: process.env.CLOUDINARY_API_SECRET  // Replace with your API secret
 });
-
+app.use(cors())
 // Middlewares
 app.use(express.json({ limit: "50mb" })); // To parse JSON data in the req.body
 app.use(express.urlencoded({ extended: true })); // To parse form data in the req.body
