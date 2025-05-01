@@ -40,11 +40,24 @@ export default function SignupCard() {
 
 	const handleSignup = async () => {
 		const newErrors = {
-			name: inputs.name ? "" : "name is required",
-			username: inputs.username ? "" : "Username is required",
-			email: inputs.email ? "" : "email is required",
+			name: !inputs.name
+				? "Name is required"
+				: /^[A-Za-z\s]+$/.test(inputs.name)
+				? ""
+				: "Name must contain only letters",
+			username: !inputs.name
+			? "Username is required"
+			: /^[A-Za-z\s]+$/.test(inputs.name)
+			? ""
+			: "Username must contain only letters",
+			email: !inputs.email
+			? "Email is required"
+			: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inputs.email)
+			? ""
+			: "Invalid email format",
 			password: inputs.password ? "" : "Password is required",
-		  };
+		};
+		
 	
 		  
 		  setErrors(newErrors);
